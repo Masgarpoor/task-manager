@@ -55,7 +55,7 @@ export default class DB {
       data = JSON.parse(data);
 
       const task = data.filter((task) => task.id === id);
-      return task ? task : false;
+      return task ? task[0] : false;
     } catch (e) {
       throw new Error("Syntax error.\nPlease check the DB file.");
     }
