@@ -1,0 +1,131 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.head {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.add-task-box {
+  background-color: rgb(235, 235, 235);
+  padding: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.add-task-box .row-one {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  margin-bottom: 10px;
+}
+
+.add-task-box .task-title-field {
+  padding: 8px;
+  width: 350px;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+
+  flex: 1;
+}
+
+.task-title-field::placeholder {
+  font-size: 1.2em;
+}
+
+.add-task-button {
+  width: 100px;
+  margin-left: -2px;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  background-color: #005ce6;
+  color: white;
+  cursor: pointer;
+
+  transition: opacity 0.15s;
+}
+
+.add-task-button:hover {
+  opacity: 0.8;
+}
+
+.add-task-box .row-two {
+  display: flex;
+  flex-direction: row;
+}
+
+.row-two .iscomplete-text {
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(235, 235, 235);
+  border-radius: 5px;
+
+  width: 100%;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid rgb(199, 197, 197);
+  padding: 10px;
+}
+
+.operations {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status {
+  font-size: 0.8em;
+  background-color: gray;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.toggle-button {
+  background-color: rgb(8, 243, 8);
+}
+
+.edit-button:hover {
+  background-color: #005ce6;
+}
+
+.delete-button:hover {
+  background-color: red;
+}
+
+
+
+.button {
+  border: none;
+  padding: 5px 8px;
+
+  border-radius: 3px;
+  transition: background-color 0.15s;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
