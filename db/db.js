@@ -53,7 +53,6 @@ export default class DB {
 
     try {
       data = JSON.parse(data);
-
       const task = data.filter((task) => task.id === id);
       return task ? task[0] : false;
     } catch (e) {
@@ -77,7 +76,9 @@ export default class DB {
 
     try {
       data = JSON.parse(data);
-      const task = data.find((item) => item.title.toLowerCase() === title.toLowerCase());
+      const task = data.find(
+        (item) => item.title.toLowerCase() === title.toLowerCase()
+      );
 
       return task ? task : false;
     } catch (e) {
@@ -107,7 +108,7 @@ export default class DB {
     }
   }
 
-  static saveTask(id = 0, title, completed=false) {
+  static saveTask(id = 0, title, completed = false) {
     id = Number(id);
 
     if (id < 0 || id !== parseInt(id)) {
@@ -123,7 +124,7 @@ export default class DB {
 
     let data;
     if (DB.DBExists()) {
-      data = fs.readFileSync(dbpath, 'utf-8');
+      data = fs.readFileSync(dbpath, "utf-8");
     } else {
       try {
         DB.createDB();
@@ -169,7 +170,7 @@ export default class DB {
       }
 
       data[indexOfTask].id = id;
-      data[indexOfTask].title = id;
+      data[indexOfTask].title = title;
       data[indexOfTask].completed = completed;
 
       data = JSON.stringify(data, null, "   ");

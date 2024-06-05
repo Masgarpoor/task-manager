@@ -13,6 +13,8 @@ const staticFilePath = path.join(__dirname, "static");
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 app.use(express.static(staticFilePath));
 
 app.use(getRoutes);

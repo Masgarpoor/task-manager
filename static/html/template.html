@@ -26,44 +26,48 @@
             <button type="submit" class="add-task-button">Add new task</button>
           </div>
           <div class="row-two">
-            <input name="isComplete" type="checkbox"/>
-            <p class="iscomplete-text">
-              The task is complete
-            </p>
+            <input name="isComplete" type="checkbox" />
+            <p class="iscomplete-text">The task is complete</p>
           </div>
         </form>
       </div>
 
       <div class="list">
-        <div class="task">
+        <div class="task" data-id="1">
           <div>
             <p class="title">Learn Node.js</p>
           </div>
           <div class="operations">
             <p class="status">In progress</p>
-            <button class="toggle-button button">Toggle</button>
+            <button class="toggle-button button">
+              Toggle
+            </button>
             <button class="edit-button button">Edit</button>
             <button class="delete-button button">Delete</button>
           </div>
         </div>
-        <div class="task">
+        <div class="task" data-id="2">
           <div class="left">
             <p>Learn Node.js</p>
           </div>
           <div class="operations">
             <p class="status">In progress</p>
-            <button class="toggle-button button">Toggle</button>
+            <button class="toggle-button button">
+              Toggle
+            </button>
             <button class="edit-button button">Edit</button>
             <button class="delete-button button">Delete</button>
           </div>
         </div>
-        <div class="task">
+        <div class="task" data-id="3">
           <div class="left">
             <p>Learn Node.js</p>
           </div>
           <div class="operations">
             <p class="status">In progress</p>
-            <button class="toggle-button button">Toggle</button>
+            <button class="toggle-button button">
+              Toggle
+            </button>
             <button class="edit-button button">Edit</button>
             <button class="delete-button button">Delete</button>
           </div>
@@ -71,5 +75,6 @@
       </div>
     </div>
     <script src="js/axios.js"></script>
+    <script src="/js/scripts.js"></script>
   </body>
 </html>

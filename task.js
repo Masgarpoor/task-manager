@@ -73,4 +73,8 @@ export default class Task {
 
     return tasks;
   }
+
+  ge() {
+    console.log(`${this.title}, ${this.completed}`);
+  }
 }

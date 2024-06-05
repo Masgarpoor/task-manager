@@ -16,6 +16,7 @@ router
         task.save();
         res.redirect("/");
       } catch (e) {
+        console.error(e);
         res.status(400).send(`<h1>${e.message}</h1>`);
       }
     } else {
@@ -26,4 +27,24 @@ router
     res.redirect("/");
   });
 
+router.post("/toggle-task", (req, res) => {
+  const id = Number(req.body.id);
+  if (id) {
+    const task = Task.getTaskById(id);
+    if (task) {
+      task.completed = !task.completed;
+      try {
+        task.save();
+        res.json(true);
+      } catch (error) {
+        console.error(error);
+        res.send("<h1>Can not save changes</h1>");
+      }
+    } else {
+      res.status(404).send("<h1>Not found task</h1>");
+    }
+  } else {
+    res.status(400).send("<h1>Invalid request</h1>");
+  }
+});
 export default router;
