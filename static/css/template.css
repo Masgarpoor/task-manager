@@ -107,6 +107,10 @@
 
 .toggle-button {
   background-color: rgb(8, 243, 8);
+  transition: opacity 0.15s;
+}
+.toggle-button:hover {
+  opacity: 0.8;
 }
 
 .edit-button:hover {
@@ -117,8 +121,6 @@
   background-color: red;
 }
 
-
-
 .button {
   border: none;
   padding: 5px 8px;
@@ -128,4 +130,3 @@
   cursor: pointer;
   margin-left: 10px;
 }
-
