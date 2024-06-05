@@ -15,18 +15,23 @@
       </div>
 
       <div class="add-task-box">
-        <div class="row-one">
-          <input
-            class="task-title-field"
-            type="text"
-            placeholder="Enter a new title"
-          />
-          <button class="add-task-button">Add new task</button>
-        </div>
-        <div class="row-two">
-          <input type="checkbox" />
-          <p class="iscomplete-text">The task is complete</p>
-        </div>
+        <form action="/add-task" method="post">
+          <div class="row-one">
+            <input
+              class="task-title-field"
+              type="text"
+              placeholder="Enter a new title"
+              name="title"
+            />
+            <button type="submit" class="add-task-button">Add new task</button>
+          </div>
+          <div class="row-two">
+            <input name="isComplete" type="checkbox"/>
+            <p class="iscomplete-text">
+              The task is complete
+            </p>
+          </div>
+        </form>
       </div>
 
       <div class="list">

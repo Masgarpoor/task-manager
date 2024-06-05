@@ -77,7 +77,7 @@ export default class DB {
 
     try {
       data = JSON.parse(data);
-      const task = data.find((item) => item.title === title);
+      const task = data.find((item) => item.title.toLowerCase() === title.toLowerCase());
 
       return task ? task : false;
     } catch (e) {
