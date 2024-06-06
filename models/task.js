@@ -1,4 +1,4 @@
-import DB from "./db/db.js";
+import DB from "./db.js";
 
 export default class Task {
   #id;
