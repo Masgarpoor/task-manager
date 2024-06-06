@@ -38,5 +38,20 @@ listElement.addEventListener("click", async (event) => {
     } else if (title) {
       alert("Please enter at least 3 characters.");
     }
+  } else if (target.classList.contains("delete-button")) {
+    if (confirm("Are you sure?")) {
+      try {
+        const response = await axios.post("/delete-task", {
+          id,
+        });
+        if (response.data) {
+          target.parentElement.parentElement.remove();
+        } else {
+          alert("Bad request!");
+        }
+      } catch (error) {
+        alert(error.response.data);
+      }
+    }
   }
 });

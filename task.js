@@ -74,4 +74,11 @@ export default class Task {
     return tasks;
   }
 
+  static deleteTask(id) {
+    try {
+      return DB.deleteTask(id);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }

@@ -60,16 +60,28 @@ router.post("/edit-task", (req, res) => {
         task.save();
         res.json(true);
       } catch (error) {
-        res.status(400).json(error.message)
+        res.status(400).json(error.message);
       }
     } else {
-      res.status(404).json(404)
+      res.status(404).json(404);
     }
   } else {
     res.status(400).json(400);
   }
 });
 
-
+router.post("/delete-task", (req, res) => {
+  const id = Number(req.body.id);
+  if (id) {
+    try {
+      const resultOfDelete = Task.deleteTask(id);
+      res.json(resultOfDelete);
+    } catch (error) {
+      res.status(500).json(error.message);
+    }
+  } else {
+    res.status(400).json(400);
+  }
+});
 
 export default router;
