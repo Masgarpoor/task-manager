@@ -99,14 +99,11 @@
 
 .status {
   font-size: 0.8em;
-  background-color: gray;
-  color: white;
   padding: 2px 4px;
   border-radius: 3px;
 }
 
 .toggle-button {
-  background-color: rgb(8, 243, 8);
   transition: opacity 0.15s;
 }
 .toggle-button:hover {
@@ -129,4 +126,15 @@
   transition: background-color 0.15s;
   cursor: pointer;
   margin-left: 10px;
+}
+
+.success {
+  background-color:  rgb(8, 243, 8);
+  color: black;
+ 
+}
+
+.secondary {
+  background-color: gray;
+  color: white;
 }

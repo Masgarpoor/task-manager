@@ -26,46 +26,32 @@
             <button type="submit" class="add-task-button">Add new task</button>
           </div>
           <div class="row-two">
-            <input name="isComplete" type="checkbox" />
+            <input name="isCompleted" type="checkbox" />
             <p class="iscomplete-text">The task is complete</p>
           </div>
         </form>
       </div>
 
       <div class="list">
-        <div class="task" data-id="1">
+        <% for(let task of tasks) { %>
+        <div class="task" data-id="<%= task.id %>">
           <div>
-            <p class="title">Learn Node.js</p>
+            <p class="title"><%= task.title %></p>
           </div>
-          <div class="operations" data-id="1">
-            <p class="status">In progress</p>
-            <button class="toggle-button button">Toggle</button>
+          <div class="operations" data-id="<%= task.id %>">
+            <p class="status <%= task.completed ? 'success' : 'secondary' %>">
+              <%= task.completed ? 'Completed' : 'In progress' %>
+            </p>
+            <button
+              class="toggle-button button <%= !task.completed ? 'success' : 'secondary' %>"
+            >
+              Toggle
+            </button>
             <button class="edit-button button">Edit</button>
             <button class="delete-button button">Delete</button>
           </div>
         </div>
-        <div class="task" data-id="2">
-          <div>
-            <p class="title">Learn Java script</p>
-          </div>
-          <div class="operations" data-id="2">
-            <p class="status">In progress</p>
-            <button class="toggle-button button">Toggle</button>
-            <button class="edit-button button">Edit</button>
-            <button class="delete-button button">Delete</button>
-          </div>
-        </div>
-        <div class="task" data-id="3">
-          <div>
-            <p class="title">Learn css</p>
-          </div>
-          <div class="operations" data-id="3">
-            <p class="status">In progress</p>
-            <button class="toggle-button button">Toggle</button>
-            <button class="edit-button button">Edit</button>
-            <button class="delete-button button">Delete</button>
-          </div>
-        </div>
+        <% } %>
       </div>
     </div>
     <script src="js/axios.js"></script>

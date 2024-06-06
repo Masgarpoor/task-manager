@@ -30,6 +30,10 @@ export default class Task {
     return this.#completed;
   }
 
+  get id() {
+    return this.#id;
+  }
+
   save() {
     try {
       const id = DB.saveTask(this.#id, this.#title, this.#completed);

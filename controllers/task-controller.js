@@ -11,14 +11,15 @@ const htmlsFile = path.join(__dirname, "../views");
 export class GetController {
   static homeController(req, res) {
     const tasks = Task.getAllTask();
-    res.sendFile(path.join(htmlsFile, "home.html"));
+    res.render("home", { tasks });
   }
 }
 
 export class PostController {
   static addTask(req, res) {
     const title = req.body.title;
-    const completed = req.body.completed ? true : false;
+    const completed = req.body.isCompleted ? true : false;
+    console.log(req.body);
 
     if (title) {
       try {

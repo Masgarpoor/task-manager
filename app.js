@@ -16,10 +16,12 @@ app.use(express.static(staticPath));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 app.use(getRoutes);
 app.use(postRoutes);
 
 app.listen(3000, () => {
   console.log("http://localhost:3000");
 });
-
