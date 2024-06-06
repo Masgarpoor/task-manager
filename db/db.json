@@ -1,17 +1,17 @@
 [
    {
       "id": 1,
-      "title": "Learn docker",
-      "completed": false
+      "title": "Learn Node.js",
+      "completed": true
    },
    {
       "id": 2,
       "title": "Learn Java script",
-      "completed": false
+      "completed": true
    },
    {
       "id": 3,
-      "title": "Learn Css",
+      "title": "Learn css",
       "completed": false
    },
    {

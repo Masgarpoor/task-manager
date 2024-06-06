@@ -39,7 +39,7 @@ export default class DB {
 
   static getTaskById(id) {
     let data;
-
+    
     if (DB.DBExists()) {
       data = fs.readFileSync(dbpath);
     } else {
