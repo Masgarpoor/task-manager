@@ -19,7 +19,6 @@ export class PostController {
   static addTask(req, res) {
     const title = req.body.title;
     const completed = req.body.isCompleted ? true : false;
-    console.log(req.body);
 
     if (title) {
       try {
