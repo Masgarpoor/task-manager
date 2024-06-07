@@ -15,7 +15,7 @@ To get started with this project, follow these steps:
 1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/Masgarpoor/task-manager.gitgit
+    git clone https://github.com/Masgarpoor/task-manager.git
     cd task-manager
     ```
 
