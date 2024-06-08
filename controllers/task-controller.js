@@ -1,17 +1,11 @@
 import path from "path";
-import { fileURLToPath } from "url";
 
 import Task from "../models/task.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const htmlsFile = path.join(__dirname, "../views");
+import { rootPath } from "../app.js";
 
 export class GetController {
   static homeController(req, res) {
-    const tasks = Task.getAllTask();
-    res.render("home", { tasks });
+    res.sendFile(path.join(rootPath, "views", "home.html"));
   }
 }
 
