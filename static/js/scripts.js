@@ -46,6 +46,9 @@ listElement.addEventListener("click", async (event) => {
         });
         if (response.data) {
           target.parentElement.parentElement.remove();
+          if (!document.querySelectorAll(".task").length) {
+            listElement.innerHTML = `<h1 style="text-align: center;">There is not any task</h1>`;
+          }
         } else {
           alert("Bad request!");
         }
@@ -53,5 +56,52 @@ listElement.addEventListener("click", async (event) => {
         alert(error.response.data);
       }
     }
+  }
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const { data } = await axios.get("/get-all-tasks");
+    console.log(data);
+
+    if (data instanceof Array) {
+      const listElement = document.querySelector(".js-list");
+      if (data.length) {
+        let htmlGenerate = data
+          .map((task) => {
+            return `
+      <div class="task" data-id="${task.id}">
+          <div>
+            <p class="title">${task.title}</p>
+          </div>
+
+        <div class="operations" data-id="${task.id}">
+          <p class="status ${task.completed ? "success" : "secondary"}">
+            ${task.completed ? "Completed" : "In progress"}
+          </p>
+
+          <button
+            class="toggle-button button ${
+              !task.completed ? "success" : "secondary"
+            }"
+          >
+            Toggle
+          </button>
+
+          <button class="edit-button button">Edit</button>
+          <button class="delete-button button">Delete</button>
+        </div>
+      </div>
+          `;
+          })
+          .join("");
+
+        listElement.innerHTML = htmlGenerate;
+      } else {
+        listElement.innerHTML = `<h1 style="text-align: center;">There is not any task</h1>`;
+      }
+    }
+  } catch (error) {
+    console.log(error);
   }
 });

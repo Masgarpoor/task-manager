@@ -7,6 +7,15 @@ export class GetController {
   static homeController(req, res) {
     res.sendFile(path.join(rootPath, "views", "home.html"));
   }
+
+  static getAllTasksController(req, res) {
+    try {
+      const tasks = Task.getAllTask(true);
+      res.json(tasks);
+    } catch (error) {
+      res.status(500).json('Internal Server Error!');
+    }
+  }
 }
 
 export class PostController {
