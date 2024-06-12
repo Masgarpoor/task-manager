@@ -88,4 +88,12 @@ export default class Task {
       throw new Error(error.message);
     }
   }
+
+  toJSON() {
+    return {
+      id: this.id,
+      title: this.title,
+      completed: this.completed,
+    };
+  }
 }

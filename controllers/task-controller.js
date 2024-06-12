@@ -13,7 +13,7 @@ export class GetController {
       const tasks = Task.getAllTask(true);
       res.json(tasks);
     } catch (error) {
-      res.status(500).json('Internal Server Error!');
+      res.status(500).json("Internal Server Error!");
     }
   }
 }
@@ -22,18 +22,17 @@ export class PostController {
   static addTask(req, res) {
     const title = req.body.title;
     const completed = req.body.isCompleted ? true : false;
-
     if (title) {
       try {
         const task = new Task(title, completed);
         task.save();
-        res.redirect("/");
+        res.json(Number(task.id));
       } catch (e) {
         console.error(e);
-        res.status(400).send(`<h1>${e.message}</h1>`);
+        res.status(400).send(`${e.message}`);
       }
     } else {
-      res.status(400).send("<h1>Invalid request. You must enter title.</h1>");
+      res.status(400).send("Invalid request. You must enter title.");
     }
   }
 
@@ -48,7 +47,7 @@ export class PostController {
           res.json(true);
         } catch (error) {
           console.error(error);
-          res.send("<h1>Can not save changes</h1>");
+          res.send("Can not save changes");
         }
       } else {
         res.status(404).json(404);
@@ -91,6 +90,50 @@ export class PostController {
       }
     } else {
       res.status(400).json(400);
+    }
+  }
+}
+
+export default class TaskController {
+  static getAllTasks(req, res) {
+    try {
+      const tasks = Task.getAllTask();
+      res.json({
+        success: true,
+        body: tasks,
+        message: "All tasks fetcehd!",
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        body: null,
+        message: "Internal Server Error!",
+      });
+    }
+  }
+
+  static getTaskById(req, res) {
+    try {
+      const task = Task.getTaskById(Number(req.params.id));
+      if (task) {
+        res.json({
+          success: true,
+          body: task,
+          message: "The task fetched successfully",
+        });
+      } else {
+        res.status(404).json({
+          success: false,
+          body: null,
+          message: "Task not found",
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        body: null,
+        message: "Internal Server Error!",
+      });
     }
   }
 }

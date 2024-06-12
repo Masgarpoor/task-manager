@@ -13,23 +13,20 @@
       <div>
         <p class="head">Task Manager App</p>
       </div>
-
       <div class="add-task-box">
-        <form action="/add-task" method="post">
-          <div class="row-one">
-            <input
-              class="task-title-field"
-              type="text"
-              placeholder="Enter a new title"
-              name="title"
-            />
-            <button type="submit" class="add-task-button">Add new task</button>
-          </div>
-          <div class="row-two">
-            <input name="isCompleted" type="checkbox" />
-            <p class="iscomplete-text">The task is complete</p>
-          </div>
-        </form>
+        <div class="row-one">
+          <input
+            class="task-title-field"
+            type="text"
+            placeholder="Enter a new title"
+            name="title"
+          />
+          <button class="add-task-button">Add new task</button>
+        </div>
+        <div class="row-two">
+          <input class="completed-btn" type="checkbox" />
+          <p class="iscomplete-text">The task is complete</p>
+        </div>
       </div>
 
       <div class="js-list list"></div>
