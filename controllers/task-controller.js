@@ -228,4 +228,29 @@ export default class TaskController {
       });
     }
   }
+
+  static deleteTask(req, res) {
+    const { id } = req.params;
+    try {
+      if (Task.deleteTask(id)) {
+        res.json({
+          success: true,
+          body: null,
+          message: "The task deleted",
+        });
+      } else {
+        res.status(404).json({
+          success: false,
+          body: null,
+          message: "Task not found",
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        body: null,
+        message: error.message,
+      });
+    }
+  }
 }

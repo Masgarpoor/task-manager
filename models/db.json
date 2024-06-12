@@ -8,10 +8,5 @@
       "id": 2,
       "title": "learn py",
       "completed": true
-   },
-   {
-      "id": 3,
-      "title": "learn json",
-      "completed": false
    }
 ]

@@ -207,7 +207,7 @@ export default class DB {
 
   static deleteTask(id) {
     id = Number(id);
-    if (id > 0 && parseInt(id) === id) {
+       if (id > 0 && parseInt(id) === id) {
       let data;
       try {
         data = fs.readFileSync(dbpath);
