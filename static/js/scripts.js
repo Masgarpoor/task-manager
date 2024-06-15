@@ -8,9 +8,17 @@ listElement.addEventListener("click", async (event) => {
   const id = target.parentElement.dataset.id;
 
   if (target.classList.contains("toggle-button")) {
+    const title =
+      target.parentElement.parentElement.querySelector(".title").innerText;
+    const completed = target.classList.contains("success") ? true : false;
+
     try {
-      const response = await axios.post("/toggle-task", { id });
-      if (response.data === true) {
+      const { data } = await axios.put(`/tasks/${id}`, {
+        title,
+        completed,
+      });
+
+      if (data.success) {
         const statusElement = target.parentElement.querySelector(".status");
 
         if (target.classList.contains("success")) {
@@ -29,30 +37,35 @@ listElement.addEventListener("click", async (event) => {
           statusElement.innerHTML = "In progress";
         }
       } else {
-        alert(response.data);
+        alert(data.message);
       }
     } catch (e) {
-      alert(e.response.data);
+      alert(e.response.data.message);
     }
   } else if (target.classList.contains("edit-button")) {
     const titleElement =
       target.parentElement.parentElement.querySelector(".title");
     const title = prompt("Please enter new title:", titleElement.textContent);
 
-    if (title && title.length >= 3) {
+    if (title && title.trim().length >= 3) {
+      const completed = target.parentElement
+        .querySelector(".toggle-button")
+        .classList.contains("success")
+        ? false
+        : true;
       try {
-        const response = await axios.post("/edit-task", {
-          id,
+        const { data } = await axios.put(`/tasks/${id}`, {
           title,
+          completed,
         });
 
-        if (response.data === true) {
+        if (data.success) {
           titleElement.innerHTML = title;
         } else {
-          alert(response.data);
+          alert(data.message);
         }
       } catch (error) {
-        alert(error.response.data);
+        alert(error.response.data.message);
       }
     } else if (title) {
       alert("Please enter at least 3 characters.");
@@ -60,10 +73,8 @@ listElement.addEventListener("click", async (event) => {
   } else if (target.classList.contains("delete-button")) {
     if (confirm("Are you sure?")) {
       try {
-        const response = await axios.post("/delete-task", {
-          id,
-        });
-        if (response.data) {
+        const { data } = await axios.delete(`/tasks/${id}`);
+        if (data.success) {
           target.parentElement.parentElement.remove();
           if (!document.querySelectorAll(".task").length) {
             listElement.innerHTML = `<h1 class="not-any-tesk" style="text-align: center;">There is not any task</h1>`;
@@ -80,12 +91,11 @@ listElement.addEventListener("click", async (event) => {
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const { data } = await axios.get("/get-all-tasks");
+    const { data } = await axios.get("/tasks");
 
-    if (data instanceof Array) {
-      const listElement = document.querySelector(".js-list");
-      if (data.length) {
-        let htmlGenerate = data
+    if (data.success) {
+      if (data.body.length) {
+        let htmlGenerate = data.body
           .map((task) => {
             return `
       <div class="task" data-id="${task.id}">
@@ -120,7 +130,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data.message);
   }
 });
 
@@ -138,12 +148,13 @@ async function addTaskHandler() {
 
   if (title.trim()) {
     try {
-      const { data: id } = await axios.post("/add-task", {
+      const { data } = await axios.post("/tasks", {
         title,
         isCompleted,
       });
 
-      if (id) {
+      if (data.success) {
+        const id = data.body.id;
         const taskHtml = `
       <div class="task" data-id="${id}">
           <div>
@@ -175,7 +186,7 @@ async function addTaskHandler() {
         input.value = "";
       }
     } catch (error) {
-      alert(error.response.data);
+      alert(error.response.data.message);
     }
   } else {
     alert("Please enter one title.");
