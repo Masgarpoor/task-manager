@@ -3,6 +3,8 @@ const addButton = document.querySelector(".add-task-button");
 const input = document.querySelector(".task-title-field");
 const isCompletedElement = document.querySelector(".completed-btn");
 
+axios.defaults.baseURL = "http://localhost:3000";
+
 listElement.addEventListener("click", async (event) => {
   const target = event.target;
   const id = target.parentElement.dataset.id;
@@ -134,10 +136,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-addButton.addEventListener("click", addTaskHandler);
+addButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  addTaskHandler();
+});
 
 input.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
+    event.preventDefault();
     addTaskHandler();
   }
 });
