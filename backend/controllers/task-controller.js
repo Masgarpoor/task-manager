@@ -1,9 +1,38 @@
 import Task from "../models/task.js";
 
 export default class TaskController {
-  static getAllTasks(req, res) {
+  static getTasks(req, res) {
+    let page = 1;
+    let limit = 4;
+    let finished = undefined;
+    let search = "";
+
+    if (req.query.page > 0) {
+      page = parseInt(req.query.page);
+    }
+    if (req.query.limit > 0) {
+      limit = parseInt(req.query.limit);
+    }
+    if (req.query.search) {
+      search = req.query.search;
+    }
+    console.log(search);
+    if (req.query.finished === "true" || req.query.finished === "false") {
+      finished = req.query.finished === "true" ? true : false;
+    }
     try {
-      const tasks = Task.getAllTask();
+      let tasks = Task.getAllTask();
+      tasks = tasks.filter((item) => item.title.includes(search));
+      if (finished !== undefined) {
+        tasks = tasks.filter((item) => item.completed === finished);
+      }
+
+      const totalTasks = tasks.length;
+
+      const start = (page - 1) * limit;
+      const end = start + limit;
+      tasks = tasks.slice(start, end);
+
       res.json({
         success: true,
         body: tasks,
