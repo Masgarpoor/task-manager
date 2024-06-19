@@ -129,12 +129,48 @@
 }
 
 .success {
-  background-color:  rgb(8, 243, 8);
+  background-color: rgb(8, 243, 8);
   color: black;
- 
 }
 
 .secondary {
   background-color: gray;
   color: white;
 }
+
+.option {
+  padding-left: 10px;
+}
+
+.filtering-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.pagination-container {
+  margin-top: 10px;
+}
+
+.page-lable {
+  font-size: 0.8em;
+}
+
+.prev-button,
+.next-button {
+  background-color: #005ce6;
+  border: none;
+  padding: 5px 8px;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  margin: 5px;
+}
+.prev-button:hover,
+.next-button:hover {
+  opacity: 0.8;
+} 

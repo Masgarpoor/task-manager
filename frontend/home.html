@@ -28,8 +28,37 @@
           <p class="iscomplete-text">The task is complete</p>
         </div>
       </div>
+      <div class="filtering-container">
+        <p>Status:</p>
+        <div class="option">
+          <input
+            name="filter"
+            type="radio"
+            id="all"
+            class="radio-button"
+            checked
+          />
+          <label for="all">All</label>
+        </div>
 
+        <div class="option">
+          <input name="filter" type="radio" id="completed" />
+          <label for="all">Completed</label>
+        </div>
+        
+        <div class="option">
+          <input name="filter" type="radio" id="in-progress" />
+          <label for="all">In progress</label>
+        </div>
+      </div>
       <div class="js-list list"></div>
+      <div class="pagination-container">
+        <div class="pagination">
+          <button class="prev-button">&leftarrow;</button>
+          <label class="page-lable">Page 1 of 1</label>
+          <button class="next-button">&rightarrow;</button>
+        </div>
+      </div>
     </div>
     <script src="js/axios.js"></script>
     <script src="js/scripts.js"></script>

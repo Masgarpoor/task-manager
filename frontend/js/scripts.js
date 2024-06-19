@@ -3,7 +3,21 @@ const addButton = document.querySelector(".add-task-button");
 const input = document.querySelector(".task-title-field");
 const isCompletedElement = document.querySelector(".completed-btn");
 
+const allRadio = document.getElementById("all");
+const completedRadio = document.getElementById("completed");
+const inProgressRadio = document.getElementById("in-progress");
+
+const pagination = document.querySelector(".pagination");
+const nextButton = document.querySelector(".next-button");
+const prevButton = document.querySelector(".prev-button");
+const pageLabel = document.querySelector(".page-lable");
+
 axios.defaults.baseURL = "http://localhost:3000";
+
+const limit = 3;
+let currentPage = 1;
+let finished = undefined;
+let totalTasks, totalPages;
 
 listElement.addEventListener("click", async (event) => {
   const target = event.target;
@@ -79,7 +93,8 @@ listElement.addEventListener("click", async (event) => {
         if (data.success) {
           target.parentElement.parentElement.remove();
           if (!document.querySelectorAll(".task").length) {
-            listElement.innerHTML = `<h1 class="not-any-tesk" style="text-align: center;">There is not any task</h1>`;
+            currentPage--;
+            loadTask();
           }
         } else {
           alert("Bad request!");
@@ -91,9 +106,27 @@ listElement.addEventListener("click", async (event) => {
   }
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
+  loadTask();
+});
+
+addButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  addTaskHandler();
+});
+
+input.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addTaskHandler();
+  }
+});
+
+async function loadTask() {
   try {
-    const { data } = await axios.get("/tasks");
+    const { data } = await axios.get(
+      `/tasks?page=${currentPage}&limit=${limit}&finished=${finished}`
+    );
 
     if (data.success) {
       if (data.body.length) {
@@ -125,27 +158,60 @@ document.addEventListener("DOMContentLoaded", async () => {
           `;
           })
           .join("");
-
         listElement.innerHTML = htmlGenerate;
+        input.value = "";
+        isCompletedElement.checked = false;
       } else {
         listElement.innerHTML = `<h1 class="not-any-tesk" style="text-align: center;">There is not any task</h1>`;
+      }
+      totalTasks = data.totalTasks;
+      if (totalTasks > limit) {
+        pagination.classList.remove("display-none");
+        totalPages = Math.ceil(totalTasks / limit);
+        prevButton.disabled = nextButton.disabled = false;
+        if (currentPage === 1) {
+          prevButton.disabled = true;
+        } else if (currentPage === totalPages) {
+          nextButton.disabled = true;
+        }
+
+        pageLabel.innerText = `Page ${currentPage} of ${totalPages}`;
+      } else {
+        pagination.classList.add("display-none");
+        totalPages = 1;
       }
     }
   } catch (error) {
     console.log(error.response.data.message);
   }
+}
+
+nextButton.addEventListener("click", () => {
+  currentPage++;
+  loadTask();
 });
 
-addButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  addTaskHandler();
+prevButton.addEventListener("click", () => {
+  currentPage--;
+  loadTask();
 });
 
-input.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    addTaskHandler();
-  }
+allRadio.addEventListener("change", () => {
+  finished = undefined;
+  currentPage = 1;
+  loadTask();
+});
+
+completedRadio.addEventListener("change", () => {
+  finished = true;
+  currentPage = 1;
+  loadTask();
+});
+
+inProgressRadio.addEventListener("change", () => {
+  finished = false;
+  currentPage = 1;
+  loadTask();
 });
 
 async function addTaskHandler() {
@@ -160,36 +226,12 @@ async function addTaskHandler() {
       });
 
       if (data.success) {
-        const id = data.body.id;
-        const taskHtml = `
-      <div class="task" data-id="${id}">
-          <div>
-            <p class="title">${title}</p>
-          </div>
-
-        <div class="operations" data-id="${id}">
-          <p class="status ${isCompleted ? "success" : "secondary"}">
-            ${isCompleted ? "Completed" : "In progress"}
-          </p>
-
-          <button
-            class="toggle-button button ${
-              !isCompleted ? "success" : "secondary"
-            }"
-          >
-            Toggle
-          </button>
-
-          <button class="edit-button button">Edit</button>
-          <button class="delete-button button">Delete</button>
-        </div>
-      </div>
-          `;
-        if (listElement.querySelector(".not-any-tesk")) {
-          listElement.querySelector(".not-any-tesk").remove();
+        if (totalTasks % limit) {
+          currentPage = totalPages;
+        } else {
+          currentPage = totalPages + 1;
         }
-        listElement.insertAdjacentHTML("beforeend", taskHtml);
-        input.value = "";
+        loadTask();
       }
     } catch (error) {
       alert(error.response.data.message);

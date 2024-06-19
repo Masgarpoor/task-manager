@@ -16,7 +16,6 @@ export default class TaskController {
     if (req.query.search) {
       search = req.query.search;
     }
-    console.log(search);
     if (req.query.finished === "true" || req.query.finished === "false") {
       finished = req.query.finished === "true" ? true : false;
     }
@@ -37,6 +36,7 @@ export default class TaskController {
         success: true,
         body: tasks,
         message: "All tasks fetcehd!",
+        totalTasks,
       });
     } catch (error) {
       res.status(500).json({
