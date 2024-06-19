@@ -91,11 +91,13 @@ listElement.addEventListener("click", async (event) => {
       try {
         const { data } = await axios.delete(`/tasks/${id}`);
         if (data.success) {
-          target.parentElement.parentElement.remove();
-          if (!document.querySelectorAll(".task").length) {
+          if (
+            document.querySelectorAll(".task").length === 1 &&
+            currentPage > 1
+          ) {
             currentPage--;
-            loadTask();
           }
+          loadTask();
         } else {
           alert("Bad request!");
         }
@@ -226,7 +228,9 @@ async function addTaskHandler() {
       });
 
       if (data.success) {
-        if (totalTasks % limit) {
+        if (totalTasks === 0) {
+          currentPage = 1;
+        } else if (totalTasks % limit) {
           currentPage = totalPages;
         } else {
           currentPage = totalPages + 1;
