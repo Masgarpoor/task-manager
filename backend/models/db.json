@@ -1,1 +1,37 @@
-[]
+[
+   {
+      "id": 1,
+      "title": "Learn CSS",
+      "completed": false
+   },
+   {
+      "id": 2,
+      "title": "Learn Java",
+      "completed": false
+   },
+   {
+      "id": 3,
+      "title": "python",
+      "completed": false
+   },
+   {
+      "id": 4,
+      "title": "git",
+      "completed": false
+   },
+   {
+      "id": 5,
+      "title": "html",
+      "completed": false
+   },
+   {
+      "id": 6,
+      "title": "django",
+      "completed": true
+   },
+   {
+      "id": 7,
+      "title": "docker",
+      "completed": true
+   }
+]

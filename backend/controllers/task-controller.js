@@ -21,7 +21,7 @@ export default class TaskController {
     }
     try {
       let tasks = Task.getAllTask();
-      tasks = tasks.filter((item) => item.title.includes(search));
+      tasks = tasks.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()));
       if (finished !== undefined) {
         tasks = tasks.filter((item) => item.completed === finished);
       }

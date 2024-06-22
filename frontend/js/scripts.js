@@ -7,6 +7,8 @@ const allRadio = document.getElementById("all");
 const completedRadio = document.getElementById("completed");
 const inProgressRadio = document.getElementById("in-progress");
 
+const searchField = document.querySelector(".js-search-field");
+
 const pagination = document.querySelector(".pagination");
 const nextButton = document.querySelector(".next-button");
 const prevButton = document.querySelector(".prev-button");
@@ -17,6 +19,7 @@ axios.defaults.baseURL = "http://localhost:3000";
 const limit = 3;
 let currentPage = 1;
 let finished = undefined;
+let search = "";
 let totalTasks, totalPages;
 
 listElement.addEventListener("click", async (event) => {
@@ -125,9 +128,11 @@ input.addEventListener("keydown", (event) => {
 });
 
 async function loadTask() {
+  search = searchField.value;
+
   try {
     const { data } = await axios.get(
-      `/tasks?page=${currentPage}&limit=${limit}&finished=${finished}`
+      `/tasks?page=${currentPage}&limit=${limit}&finished=${finished}&search=${search}`
     );
 
     if (data.success) {
@@ -216,6 +221,21 @@ inProgressRadio.addEventListener("change", () => {
   loadTask();
 });
 
+const searchHandleDebounce = _.debounce(searchHandle, 500);
+searchField.addEventListener("input", () => {
+  searchHandleDebounce();
+});
+
+searchField.addEventListener("focus", () => {
+  searchField.classList.add("expand");
+});
+
+searchField.addEventListener("blur", () => {
+  searchField.classList.remove("expand");
+  currentPage = 1;
+  loadTask();
+});
+
 async function addTaskHandler() {
   const title = input.value;
   const isCompleted = isCompletedElement.checked;
@@ -243,4 +263,11 @@ async function addTaskHandler() {
   } else {
     alert("Please enter one title.");
   }
+}
+
+async function searchHandle() {
+  const input = searchField.value;
+  search = input;
+  currentPage = 1;
+  loadTask();
 }
