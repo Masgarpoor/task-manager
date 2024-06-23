@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -w . -w static/js -w static/css -w ./controllers -e js,html,css app.js"
+    "startNodemon": "nodemon -w . -w static/js -w static/css -w ./controllers -e js,html,css app.js",
+    "start": "node app.js"
   },
   "keywords": [
     "task-manager"
